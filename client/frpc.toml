@@ -38,3 +38,21 @@ serverName = "pz_udp_16261"
 secretKey = "123456"
 bindAddr = "127.0.0.1"
 bindPort = 16261
+
+[[visitors]]
+type = "sudp"
+name = "visitor_pz_udp_16262"
+serverName = "pz_udp_16262"
+# 设置成新的sk，要与server中ZP_16261_UDP的sk一致
+secretKey = "123456"
+bindAddr = "127.0.0.1"
+bindPort = 16262
+
+[[visitors]]
+type = "xtcp"
+name = "visitor_pz_tdp_16262"
+serverName = "pz_tdp_16262"
+# 设置成新的sk，要与server中ZP_16261_UDP的sk一致
+secretKey = "123456"
+bindAddr = "127.0.0.1"
+bindPort = 16262

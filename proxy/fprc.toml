@@ -33,3 +33,19 @@ localIp = "127.0.0.1"
 secretKey = "123456"
 localPort = 16261
 # remotePort = 16261
+
+[[proxies]]
+name = "pz_udp_16262"
+type = "sudp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 16262
+# remotePort = 16261
+
+[[proxies]]
+name = "pz_tcp_16262"
+type = "xtcp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 16262
+# remotePort = 16261
