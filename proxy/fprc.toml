@@ -1,0 +1,35 @@
+serverAddr = "47.236.117.175"
+serverport = 7000
+auth.token = "123456"
+
+[[proxies]]
+name = "pz_udp_8766"
+type = "sudp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 8766
+# remotePort = 8766
+
+[[proxies]]
+name = "pz_tcp_8766"
+type = "xtcp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 8766
+# remotePort = 8766
+
+[[proxies]]
+name = "pz_udp_16261"
+type = "sudp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 16261
+# remotePort = 16261
+
+[[proxies]]
+name = "pz_tcp_16261"
+type = "xtcp"
+localIp = "127.0.0.1"
+secretKey = "123456"
+localPort = 16261
+# remotePort = 16261
