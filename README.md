@@ -1,5 +1,7 @@
 # Project Zombie Reverse Proxy
 
+This project is to help project zombie's player to run service in their 
+
 ## Prepare
 
 - machine with public IP as proxy machine(the more bandwidth the better)
@@ -15,14 +17,16 @@ cd proxy
 frps -c frps.toml
 ```
 
-2. install frp in your service machine and run
+2. install project-zombie dedicated server via steam or steamCMD. 
+
+3. install frp in your service machine and run
 
 ```
 cd service 
 frpc -c frpc.toml
 ```
 
-3a. (windows) install frp in your client and run 
+4. (windows) install frp in your client and run 
 ``` powershell
 cd client
 frpc -c fprc.toml
