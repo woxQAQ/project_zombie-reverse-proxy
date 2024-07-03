@@ -1,23 +1,11 @@
 serverAddr =  
 serverPort = 7000
 auth.token = "123456"
-# 设置成新的token，要与proxy的一致
-
-# [[visitors]]
-# type = "stcp"
-# name = "visitor_pz_tcp_16261"
-# serverName = "pz_tcp_16261"
-# # 设置成新的sk，要与server中ZP_16261_TCP的sk一致
-# secretKey = "123456"
-# bindAddr = "127.0.0.1"
-# bindPort = 16261
 
 [[visitors]]
 type = "sudp"
 name = "visitor_pz_udp_16261"
 serverName = "pz_udp_16261"
-# 设置成新的sk，要与server中ZP_16261_UDP的sk一致
-# secretKey = "123456"
 bindAddr = "127.0.0.1"
 bindPort = 23333
 
@@ -25,16 +13,6 @@ bindPort = 23333
 type = "sudp"
 name = "visitor_pz_udp_16262"
 serverName = "pz_udp_16262"
-# 设置成新的sk，要与server中ZP_16261_UDP的sk一致
-# secretKey = "123456"
 bindAddr = "127.0.0.1"
 bindPort = 23334
 
-# [[visitors]]
-# type = "stcp"
-# name = "visitor_pz_tdp_16262"
-# serverName = "pz_tcp_16262"
-# # 设置成新的sk，要与server中ZP_16261_UDP的sk一致
-# secretKey = "123456"
-# bindAddr = "127.0.0.1"
-# bindPort = 16262
