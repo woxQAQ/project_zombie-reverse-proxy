@@ -8,16 +8,17 @@ import (
 	"os/exec"
 	"os/signal"
 	"path/filepath"
+	"sync"
 )
 
 var pzPath = flag.String("p", "./", "project-zombie path")
-var zuluJDKPath = ""
 
 func init() {
 	flag.Parse()
 }
 
-func startServer(ctx context.Context) {
+func startServer(ctx context.Context, wg *sync.WaitGroup) {
+	defer wg.Done()
 	err := os.Chdir(*pzPath)
 	if err != nil {
 		log.Fatal(err)
@@ -30,28 +31,47 @@ func startServer(ctx context.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	cmd := exec.Command("cmd.exe", "/c", "start "+javaPath)
+	log.Println("Start Server ...")
+	cmd := exec.CommandContext(ctx, "cmd.exe", "/c", "start "+javaPath)
 	if err = cmd.Run(); err != nil {
+		log.Fatal(err)
+	}
+	if err = cmd.Wait(); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func startFrpc(ctx context.Context) {
-	cmd := exec.Command("frpc.exe", "-c", "./proxy/frpc.toml")
+func startProxy(ctx context.Context, wg *sync.WaitGroup) {
+	defer wg.Done()
+	cmd := exec.CommandContext(ctx, "frpc.exe", "-c", "./proxy/frpc.toml")
+	log.Println("Start Proxy ...")
 	if err := cmd.Run(); err != nil {
+		log.Fatal(err)
+	}
+	if err := cmd.Wait(); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	go startServer(ctx)
-	go startFrpc(ctx)
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		startServer(ctx, &wg)
+	}()
+	go func() {
+		startProxy(ctx, &wg)
+	}()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 
 	log.Println("Shutdown Server ...")
+	cancel()
+
+	wg.Wait()
+
+	log.Println("Bye!")
 }
