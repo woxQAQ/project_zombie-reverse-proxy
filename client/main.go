@@ -6,17 +6,20 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 )
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	go func(ctx context.Context) {
-		cmd := exec.CommandContext(ctx, "frpc.exe", "-c", "./frpc.toml")
-		if err := cmd.Run(); err != nil {
+		frpcPath, err := filepath.Abs("./frpc.exe")
+		if err != nil {
 			log.Fatal(err)
 		}
-		if err := cmd.Wait(); err != nil {
+		frpcConfig, err := filepath.Abs("./frpc.toml")
+		cmd := exec.CommandContext(ctx, "cmd.exe", "/c", frpcPath, "-c", frpcConfig)
+		if err = cmd.Run(); err != nil {
 			log.Fatal(err)
 		}
 	}(ctx)

@@ -1,1 +1,1 @@
-.\frpc.exe -c .\frpc.toml
+frpc.exe -c .\frpc.toml

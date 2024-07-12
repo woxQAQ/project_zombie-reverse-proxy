@@ -1,0 +1,13 @@
+go 1.22.2
+
+use (
+	./client
+	./frp-dev
+	./service
+)
+
+//replace (
+//	github.com/woxQAQ/project_zombie_reverse_proxy/frp => ./frp-dev
+//	github.com/woxQAQ/project_zombie_reverse_proxy/client => ./client
+//	github.com/woxQAQ/project_zombie_reverse_proxy/service => ./service
+//)
