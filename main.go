@@ -11,10 +11,15 @@ import (
 	"sync"
 )
 
-var pzPath = flag.String("p", "./", "project-zombie path")
+var pzPath = flag.String("p", "./", "dedicated project-zombie path")
+var pzParma = `-Djava.awt.headless=true -Dzomboid.steam=1 -Dzomboid.znetlog=1 -XX:+UseZGC -XX:-CreateCoredumpOnCrash -XX:-OmitStackTraceInFastThrow -Xms8g -Xmx8g -Djava.library.path=natives/;natives/win64/;. -cp %PZ_CLASSPATH% zombie.network.GameServer -statistic 0 %1 %2`
 
 func init() {
 	flag.Parse()
+
+	if _, err := os.Stat(*pzPath); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func startServer(ctx context.Context, wg *sync.WaitGroup) {
@@ -32,7 +37,7 @@ func startServer(ctx context.Context, wg *sync.WaitGroup) {
 		log.Fatal(err)
 	}
 	log.Println("Start Server ...")
-	cmd := exec.CommandContext(ctx, "cmd.exe", "/c", "start "+javaPath)
+	cmd := exec.CommandContext(ctx, "cmd.exe", "/c", "start "+javaPath, pzParma)
 	if err = cmd.Run(); err != nil {
 		log.Fatal(err)
 	}
